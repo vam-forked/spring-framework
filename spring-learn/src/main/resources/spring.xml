@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+<bean class="org.springframework.learn.bean.base.Student"
+<!--	  parent="" -->
+<!--	  abstract="false" -->
+<!--	  autowire="" -->
+<!--	  autowire-candidate="" -->
+<!--	  depends-on="" -->
+<!--	  destroy-method="" -->
+<!--	  factory-bean="" -->
+<!--	  factory-method="" -->
+<!--	  id="" -->
+<!--	  init-method="" -->
+<!--	  lazy-init="default" -->
+<!--	  name="student" -->
+<!--	  primary="false" -->
+<!--	  scope="singleton" -->
+/>
+
+</beans>
