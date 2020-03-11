@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2019 the original author or authors.
+ * Copyright 2002-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,17 +34,17 @@ import reactor.test.StepVerifier;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.codec.DecodingException;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.buffer.AbstractLeakCheckingTests;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
-import org.springframework.core.io.buffer.support.DataBufferTestUtils;
+import org.springframework.core.testfixture.io.buffer.AbstractLeakCheckingTests;
+import org.springframework.core.testfixture.io.buffer.DataBufferTestUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.mock.http.client.reactive.test.MockClientHttpRequest;
-import org.springframework.mock.http.server.reactive.test.MockServerHttpRequest;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.testfixture.http.client.reactive.MockClientHttpRequest;
+import org.springframework.web.testfixture.http.server.reactive.MockServerHttpRequest;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
@@ -68,11 +68,13 @@ public class SynchronossPartHttpMessageReaderTests extends AbstractLeakCheckingT
 	private static final ResolvableType PARTS_ELEMENT_TYPE =
 			forClassWithGenerics(MultiValueMap.class, String.class, Part.class);
 
+
 	@Test
 	void canRead() {
-		assertThat(this.reader.canRead(
-				PARTS_ELEMENT_TYPE,
-				MediaType.MULTIPART_FORM_DATA)).isTrue();
+		assertThat(this.reader.canRead(PARTS_ELEMENT_TYPE, MediaType.MULTIPART_FORM_DATA)).isTrue();
+		assertThat(this.reader.canRead(PARTS_ELEMENT_TYPE, MediaType.MULTIPART_MIXED)).isTrue();
+		assertThat(this.reader.canRead(PARTS_ELEMENT_TYPE, MediaType.MULTIPART_RELATED)).isTrue();
+		assertThat(this.reader.canRead(PARTS_ELEMENT_TYPE, null)).isTrue();
 
 		assertThat(this.reader.canRead(
 				forClassWithGenerics(MultiValueMap.class, String.class, Object.class),

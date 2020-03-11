@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2019 the original author or authors.
+ * Copyright 2002-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,6 +123,12 @@ public interface ServerRequest {
 	 * @since 5.1
 	 */
 	Optional<InetSocketAddress> remoteAddress();
+
+	/**
+	 * Get the remote address to which this request is connected, if available.
+	 * @since 5.2.3
+	 */
+	Optional<InetSocketAddress> localAddress();
 
 	/**
 	 * Get the readers used to convert the body of this request.
@@ -364,6 +370,18 @@ public interface ServerRequest {
 		 * @param headerName the header name
 		 */
 		List<String> header(String headerName);
+
+		/**
+		 * Get the first header value, if any, for the header for the given name.
+		 * <p>Returns {@code null} if no header values are found.
+		 * @param headerName the header name
+		 * @since 5.2.5
+		 */
+		@Nullable
+		default String firstHeader(String headerName) {
+			List<String> list = header(headerName);
+			return list.isEmpty() ? null : list.get(0);
+		}
 
 		/**
 		 * Get the headers as an instance of {@link HttpHeaders}.
